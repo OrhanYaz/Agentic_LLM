@@ -1,3 +1,22 @@
+"""
+This script creates a FAISS vector store index from text documents using SentenceTransformer embeddings.
+The script performs the following operations:
+1. Loads a sentence transformer model (all-MiniLM-L6-v2)
+2. Encodes sample texts into embeddings
+3. Creates a FAISS index from the text-embedding pairs
+4. Saves the index to local disk
+Dependencies:
+    - sentence_transformers
+    - langchain
+    - faiss
+    - numpy
+    - os
+Example texts used are company policies, but can be replaced with any text documents.
+The resulting index is saved in a 'faiss_index' directory in the local filesystem,
+which can be later loaded for similarity search operations.
+"""
+
+
 import os
 
 import numpy as np
@@ -5,38 +24,6 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from openai import AzureOpenAI
 from sentence_transformers import SentenceTransformer
-
-client = AzureOpenAI(
-    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-    api_key=os.getenv("AZURE_OPENAI_KEY"),
-    api_version="2023-05-15"
-)
-os.environ["OPENAI_API_KEY"] = os.getenv("AZURE_OPENAI_KEY")
-
-# FAISS Vector Store Setup
-embedding_model = OpenAIEmbeddings(azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-                                   openai_api_key=os.getenv("AZURE_OPENAI_KEY"), model="text-embedding-3-large")
-
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-
-
-class AzureOpenAIEmbeddings(OpenAIEmbeddings):
-    def _init_(self, client, model="text-embedding-3-large", deployment="dsl-embedding-3"):
-        self.client = client
-        self.model = model
-        self.deployment = deployment
-
-    def embed(self, texts):
-        response = self.client.embeddings.create(
-            input=texts, model=self.model, deployment_name=self.deployment)
-        return [embedding['embedding'] for embedding in response['data']]
-
-
-texts = [
-    "This is a test sentence.",
-    "This is another test sentence.",
-    "LangChain and FAISS are useful for text embeddings."
-]
 
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 

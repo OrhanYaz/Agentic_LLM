@@ -1,21 +1,25 @@
-from langchain.agents import AgentExecutor
-from langchain.agents.agent import Agent
+from langchain.agents import AgentType, initialize_agent
 
-class RouterAgent(Agent):
-    def route(self, query):
-        if "HR" in query:
-            return "HR Agent"
-        elif "finance" in query:
-            return "Finance Agent"
-        elif "summarize" in query:
-            return "Summarization Agent"
-        elif "document" in query:
-            return "Document QA Agent"
-        else:
-            return "General Agent"
+import llm
+import tools
 
-router = RouterAgent(tools=tools)
-agent_executor = AgentExecutor(agent=router, tools=tools)
 
-def handle_query(query):
-    return agent_executor.run(query)
+def run_agent(query):
+    # Initialize the agent with the tools and set the agent type
+    agent = initialize_agent(
+        tools=tools.tools,
+        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        llm=llm.llm,
+        verbose=True
+    )
+
+    # Get the answer from the agent
+    result = agent.run(query)
+    return result
+
+
+if __name__ == "__main__":
+    # Example query to run through the agent
+    query = "What is the policy on remote work?"
+    answer = run_agent(query)
+    print(answer)
