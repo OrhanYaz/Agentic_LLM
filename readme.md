@@ -24,3 +24,5 @@ This repository demonstrates the integration of FAISS, LangChain, and Azure Open
    ```bash
    git clone https://github.com/OrhanYaz/Agentic_LLM.git
 
+   Here is the repo organisation
+
