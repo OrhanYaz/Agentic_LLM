@@ -12,7 +12,7 @@ def transcribe_audio():
     with sr.Microphone() as source:
         print("🎤 Speak now...")
         recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source)
+        audio = recognizer.listen(source, timeout=None, phrase_time_limit=None)
     
     # Save audio file
     audio_path = "speech.wav"

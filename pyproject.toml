@@ -7,7 +7,7 @@ license = "MIT"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9.0, <3.12"
 openai = "^1.2.0"
 langchain = "^0.1.0"
 azure-search-documents = "^11.4.0"
@@ -19,6 +19,9 @@ sentence-transformers = "^3.3.1"
 speechrecognition = "^3.14.0"
 azure-cognitiveservices-speech = "^1.42.0"
 pyaudio = "^0.2.14"
+tts = "^0.22.0"
+simpleaudio = "^1.0.4"
+torch = "^2.5.1"
 
 [build-system]
 requires = ["poetry-core"]
