@@ -8,7 +8,7 @@ load_dotenv()
 # Azure OpenAI Configuration
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
-DEPLOYMENT_NAME = "gpt-4o"
+DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_LLM")
 OPENAI_API_VERSION = "2023-05-15"
 
 # FAISS Index Path

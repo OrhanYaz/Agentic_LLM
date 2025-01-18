@@ -8,3 +8,4 @@ llm = AzureChatOpenAI(
     deployment_name=config.DEPLOYMENT_NAME,
     openai_api_version=config.OPENAI_API_VERSION
 )
+

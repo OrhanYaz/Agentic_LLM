@@ -1,8 +1,10 @@
 from langchain.agents import AgentType, initialize_agent
+from speech_to_text import transcribe_audio
+from text_to_speech import speak_text
+
 
 import llm
 import tools
-
 
 def run_agent(query):
     # Initialize the agent with the tools and set the agent type
@@ -20,6 +22,6 @@ def run_agent(query):
 
 if __name__ == "__main__":
     # Example query to run through the agent
-    query = "What is the policy on remote work?"
+    query = "What is the policy on remote work?"#get the query through user mic using transcribe audio function
     answer = run_agent(query)
-    print(answer)
+    print(answer)#use speak_text function to speak the answer
